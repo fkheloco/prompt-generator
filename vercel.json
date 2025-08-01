@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/generate-prompt.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "server.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/generate-prompt",
+      "dest": "/api/generate-prompt.js"
+    },
+    {
+      "src": "/api/health",
+      "dest": "/api/generate-prompt.js"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/server.js"
+    }
+  ]
+} 

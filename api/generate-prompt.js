@@ -4,7 +4,6 @@ const OpenAI = require('openai');
 require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 3000;
 
 // Initialize OpenAI
 const openai = new OpenAI({
@@ -14,14 +13,6 @@ const openai = new OpenAI({
 // Middleware
 app.use(cors());
 app.use(express.json());
-
-// Serve the HTML interface
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/public/index.html');
-});
-
-// Handle static files
-app.use(express.static('public'));
 
 // API endpoint to generate prompts
 app.post('/api/generate-prompt', async (req, res) => {
@@ -94,12 +85,4 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'OK', message: 'Prompt Generator API is running' });
 });
 
-// For Vercel serverless deployment
-if (process.env.NODE_ENV !== 'production') {
-  app.listen(port, () => {
-    console.log(`🚀 Prompt Generator server running on http://localhost:${port}`);
-    console.log(`📝 API endpoint: http://localhost:${port}/api/generate-prompt`);
-  });
-}
-
-module.exports = app;
+module.exports = app; 
